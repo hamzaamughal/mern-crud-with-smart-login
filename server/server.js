@@ -4,6 +4,9 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 require('dotenv').config()
 
+//import routes
+const postRoutes = require('./routes/post')
+
 
 const app = express()
 
@@ -22,12 +25,9 @@ app.use(express.json())
 app.use(cors())
 app.use(morgan('dev'))
 
-//routes
-app.get('*', (req, res) => {
-    res.json({
-        data: 'Random data for testing..!!'
-    })
-})
+//routes middleware
+app.use('/api', postRoutes)
+
 
 
 //port
