@@ -2,7 +2,7 @@
 
 function App() {
   return (
-    <h1>hello</h1>
+    <div className="container p-5">MERN CRUD</div>
   );
 }
 
