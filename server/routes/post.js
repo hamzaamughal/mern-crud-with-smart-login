@@ -3,6 +3,6 @@ const router = require('express').Router()
 //import controller methods
 const { create } = require('../controllers/post')
 
-router.get('/', create)
+router.post('/post', create)
 
 module.exports = router
