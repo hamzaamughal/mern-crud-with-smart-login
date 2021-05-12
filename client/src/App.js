@@ -1,8 +1,13 @@
+import Nav from "./Nav";
 
 
 function App() {
   return (
-    <div className="container p-5">MERN CRUD</div>
+    <div className="container pb-5">
+      <Nav />
+      <h1>MERN CRUD</h1>
+      <br />
+    </div>
   );
 }
 
