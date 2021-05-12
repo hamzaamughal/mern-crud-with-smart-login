@@ -21,3 +21,24 @@ exports.create = (req, res) => {
         res.json(post)
     })
 }
+
+
+exports.list = (req, res) => {
+    Post.find({}).limit(10).sort({ createdAt: -1 }).exec((err, posts) => {
+        if (err) {
+            console.log(err);
+        }
+        return res.json({ posts })
+    })
+}
+
+exports.read = (req, res) => {
+    const { slug } = req.params
+    Post.findOne({ slug })
+        .exec((err, post) => {
+            if (err) {
+                console.log(err);
+            }
+            return res.json({ post })
+        })
+}
