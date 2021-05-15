@@ -6,6 +6,7 @@ require('dotenv').config()
 
 //import routes
 const postRoutes = require('./routes/post')
+const authRoutes = require('./routes/auth')
 
 
 const app = express()
@@ -27,6 +28,7 @@ app.use(morgan('dev'))
 
 //routes middleware
 app.use('/api', postRoutes)
+app.use('/api', authRoutes)
 
 
 
