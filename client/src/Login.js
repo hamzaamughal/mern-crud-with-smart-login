@@ -12,7 +12,7 @@ const Login = (props) => {
     const { name, password } = state
     useEffect(() => {
         getUser() && props.history.push('/')
-    }, [])
+    }, [props.history])
     const handleChange = (name) => (event) => {
         // console.log('name', name, 'event', event.target.value);
         setState({ ...state, [name]: event.target.value })
