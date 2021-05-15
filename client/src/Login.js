@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import Nav from './Nav'
+import { authenticate, getUser } from './helpers'
 
-const Login = () => {
+const Login = (props) => {
     const [state, setState] = useState({
         name: '',
         password: '',
     })
     const { name, password } = state
+    useEffect(() => {
+        getUser() && props.history.push('/')
+    }, [])
     const handleChange = (name) => (event) => {
         // console.log('name', name, 'event', event.target.value);
         setState({ ...state, [name]: event.target.value })
@@ -20,6 +24,7 @@ const Login = () => {
             .then(response => {
                 console.log(response.data);
                 //response will contain token and name
+                authenticate(response, () => props.history.push('/create'))
                 //redirect to create page
             })
             .catch(error => {
@@ -50,4 +55,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default withRouter(Login)
