@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Nav from "./Nav";
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-
+import { getUser } from './helpers'
 
 
 function App() {
@@ -49,16 +49,18 @@ function App() {
               <div className="row">
                 <div className="col-md-10">
                   <Link to={`/post/${post.slug}`}><h2>{post.title}</h2></Link>
-                  <p className="lead">{post.content}</p>
+                  <div className="lead pt-3">{post.content}</div>
                   <p>Author <span className="badge">{post.user}</span> Published on{' '}<span className="badge">{new Date(post.createdAt).toLocaleString()}</span></p>
                 </div>
-                <div className="col-md-2">
-                  <Link to={`/post/update/${post.slug}`} className="btn btn-sm btn-outline-warning">
-                    Update
+                {getUser() && (
+                  <div className="col-md-2">
+                    <Link to={`/post/update/${post.slug}`} className="btn btn-sm btn-outline-warning">
+                      Update
                   </Link>
-                  <button onClick={() => deleteConfirm(post.slug)}
-                    className="btn btn-sm btn-outline-danger ml-1">Delete</button>
-                </div>
+                    <button onClick={() => deleteConfirm(post.slug)}
+                      className="btn btn-sm btn-outline-danger ml-1">Delete</button>
+                  </div>
+                )}
               </div>
             </div>
           </div>

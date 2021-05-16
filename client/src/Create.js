@@ -1,17 +1,26 @@
 import React, { useState } from 'react'
+import ReactQuill from 'react-quill'
 import axios from 'axios'
 import Nav from './Nav'
+import { getUser } from './helpers'
+import 'react-quill/dist/quill.bubble.css'
 
 const Create = () => {
     //state
     const [state, setState] = useState({
         title: '',
-        content: '',
-        user: ''
+        user: getUser()
     })
 
+    const [content, setContent] = useState('')
+
+    //rich text editor handleChange
+    const handleContent = (event) => {
+        setContent(event)
+    }
+
     //destructure values from state
-    const { title, content, user } = state
+    const { title, user } = state
 
     //onChange event handler
     const handleChange = (name) => (event) => {
@@ -24,7 +33,8 @@ const Create = () => {
         axios.post(`${process.env.REACT_APP_API}/post`, { title, content, user })
             .then(response => {
                 //empty state
-                setState({ ...state, title: '', content: '', user: '' })
+                setState({ ...state, title: '', user: '' })
+                setContent('')
                 //show success alert
                 alert(`Post titled: ${response.data.title} is created`)
             })
@@ -47,7 +57,8 @@ const Create = () => {
                 </div>
                 <div className="form-group m-3">
                     <label htmlFor="content" className="text-muted p-2">Content</label>
-                    <textarea onChange={handleChange('content')} value={content} id="content" type="text" className="form-control" placeholder="Write something.." required />
+                    <ReactQuill onChange={handleContent} value={content} id="content" className="pb-5 mb-3" theme="bubble" placeholder="Write something.." required
+                        style={{ border: '1px solid #666' }} />
                 </div>
                 <div className="form-group m-3">
                     <label htmlFor="user" className="text-muted p-2">User</label>
