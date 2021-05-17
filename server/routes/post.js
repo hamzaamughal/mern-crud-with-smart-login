@@ -2,11 +2,12 @@ const router = require('express').Router()
 
 //import controller methods
 const { create, list, read, update, remove } = require('../controllers/post')
+const { requireSignin } = require('../controllers/auth')
 
-router.post('/post', create)
+router.post('/post', requireSignin, create)
 router.get('/posts', list)
 router.get('/post/:slug', read)
-router.put('/post/:slug', update)
-router.delete('/post/:slug', remove)
+router.put('/post/:slug', requireSignin, update)
+router.delete('/post/:slug', requireSignin, remove)
 
 module.exports = router

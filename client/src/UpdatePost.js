@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Nav from './Nav'
+import { getToken } from './helpers'
 
 const UpdatePost = (props) => {
     const [state, setState] = useState({
@@ -29,7 +30,12 @@ const UpdatePost = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        axios.put(`${process.env.REACT_APP_API}/post/${slug}`, { title, content, user })
+        axios.put(`${process.env.REACT_APP_API}/post/${slug}`, { title, content, user },
+            {
+                headers: {
+                    authorization: `Bearer ${getToken()}`
+                }
+            })
             .then(response => {
                 const { title, content, slug, user } = response.data.post
                 //empty state
